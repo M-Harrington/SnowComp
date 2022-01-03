@@ -1,0 +1,3 @@
+- import image files
+    - check locations within tile(s)
+    - grab bands and square around points
