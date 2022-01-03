@@ -1,0 +1,8 @@
+#wide -> long
+df = pd.read_csv("train_labels.csv")
+df.melt(id_vars=["cell_id"]).dropna()
+
+
+EPSG:4326 uses degrees as units
+
+"Yes, we will provide updated ground measure features each week throughout the evaluation phase of the competition. Data access instructions will be available on January 11 (beginning of Submission Testing Stage 2a)."
