@@ -8,3 +8,5 @@ EPSG:4326 uses degrees as units
 "Yes, we will provide updated ground measure features each week throughout the evaluation phase of the competition. Data access instructions will be available on January 11 (beginning of Submission Testing Stage 2a)."
 
 Landsat 8 -- "For Landsat 8 OLI/TIRS, it takes approximately 14-16 days to process to a Tier 1 or Tier 2 product while refined TIRS instrument line of sight model parameters are applied to Real-Time scenes." -- potential issue with realtime predictions
+
+https://forums.fast.ai/t/how-to-best-integrate-both-image-and-tabular-data-in-a-single-model-using-fastai/34598
