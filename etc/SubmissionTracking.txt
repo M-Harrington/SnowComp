@@ -1,0 +1,2 @@
+Date/Sub#		RMSE Train	RMSE Test	RMSE Holdout	RMSE CV		Actual RMSEs		Model Description
+1/17/2022		11.406		7.919		8.243		10.3241		10.3993			By region, fuzz, no holdout, quadratic?
