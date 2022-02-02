@@ -5,4 +5,5 @@
 |1/18/2022 - 1	|	12.645	|	9.144	|	-	|	11.4126	|	- | 11.3226	|		1/17 but no ground truth - CV calibration		|
 |1/18/2022 - 2	|	11.4794 |	8.7318 | -	|	11.51	| 11.56 | 10.7002 |	RF, all data, state dummies + day of season		|
 |1/19/2022 - 1	|	11.4870 |	8.4292 | -	|	11.51	| 11.56 | 9.7753 |	RF, all data including test, state dummies + day of season		|
-
+|1/29/2022 - 1	|	15.3637 |	- | -	|	15.3644 | 15.3854 | 11.8648 |	RF, only data with MODIS imagery, state dummies + day of season	|
+|1/30/2022 - 2	|	13.1548 |	- | -	|	13.5582 | 13.5787 | 9.1539 |	RF, only data with MODIS imagery, state dummies + day of season + MODIS prediction for CNN (32_18_8_3_0.13_50_44)	|
