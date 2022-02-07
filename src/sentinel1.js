@@ -61,3 +61,9 @@ Map.setCenter(-122.631271, 41.083118, 18);
 
 print(training);
 // Note outputs are flipped (y, x)
+
+Export.table.toDrive({
+  collection: training,
+  description:'test_points',
+  fileFormat: 'CSV'
+});
