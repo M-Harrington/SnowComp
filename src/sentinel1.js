@@ -31,10 +31,10 @@ var vhIwAscDescMean = vvVhIwAsc.merge(vvVhIwDesc).select('VH').mean();
 
 
 //reproject
-var vhIwAscMean = vhIwAscMean.reproject(proj, null,10);
-var vhIwDescMean = vhIwDescMean.reproject(proj, null,10);
-var vvIwAscDescMean = vvIwAscDescMean.reproject(proj, null,10);
-var vhIwAscDescMean = vhIwAscDescMean.reproject(proj, null,10);
+var vhIwAscMean = vhIwAscMean.reproject(proj, null,25);
+var vhIwDescMean = vhIwDescMean.reproject(proj, null,25);
+var vvIwAscDescMean = vvIwAscDescMean.reproject(proj, null,25);
+var vhIwAscDescMean = vhIwAscDescMean.reproject(proj, null,25);
 
 // Display the temporal means for various observations, compare them.
 Map.addLayer(vvIwAscDescMean, {min: -12, max: -4}, 'vvIwAscDescMean');
@@ -42,5 +42,22 @@ Map.addLayer(vhIwAscDescMean, {min: -18, max: -10}, 'vhIwAscDescMean');
 Map.addLayer(vhIwAscMean, {min: -18, max: -10}, 'vhIwAscMean');
 Map.addLayer(vhIwDescMean, {min: -18, max: -10}, 'vhIwDescMean');
 
-Map.setCenter(-122.631271, 41.083118, 20);  
 
+var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean]);
+//vvIwAscDescMean.addBands({srcImg: reflBands, overwrite: true});
+var point =ee.Geometry.Point([-122.631271, 41.083118]);
+
+
+var neig = image.neighborhoodToArray(ee.Kernel.square(10));
+var training = neig.reduceRegions({
+  collection: point,
+  scale: 25,
+  reducer: 'first'
+});
+
+
+
+Map.setCenter(-122.631271, 41.083118, 18);  
+
+print(training);
+// Note outputs are flipped (y, x)
