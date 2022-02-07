@@ -48,7 +48,7 @@ var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean])
 var point =ee.Geometry.Point([-122.631271, 41.083118]);
 
 
-var neig = image.neighborhoodToArray(ee.Kernel.square(10));
+var neig = image.neighborhoodToArray(ee.Kernel.square(20));
 var training = neig.reduceRegions({
   collection: point,
   scale: 25,
