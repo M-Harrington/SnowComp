@@ -29,12 +29,12 @@ var vvIwAscDescMean = vvVhIwAsc.merge(vvVhIwDesc).select('VV').mean();
 // Mean VH for combined ascending and descending image collections.
 var vhIwAscDescMean = vvVhIwAsc.merge(vvVhIwDesc).select('VH').mean();
 
-
+var scale = 40;
 //reproject
-var vhIwAscMean = vhIwAscMean.reproject(proj, null,25);
-var vhIwDescMean = vhIwDescMean.reproject(proj, null,25);
-var vvIwAscDescMean = vvIwAscDescMean.reproject(proj, null,25);
-var vhIwAscDescMean = vhIwAscDescMean.reproject(proj, null,25);
+var vhIwAscMean = vhIwAscMean.reproject(proj, null, scale);
+var vhIwDescMean = vhIwDescMean.reproject(proj, null, scale);
+var vvIwAscDescMean = vvIwAscDescMean.reproject(proj, null, scale);
+var vhIwAscDescMean = vhIwAscDescMean.reproject(proj, null, scale);
 
 // Display the temporal means for various observations, compare them.
 Map.addLayer(vvIwAscDescMean, {min: -12, max: -4}, 'vvIwAscDescMean');
@@ -48,10 +48,11 @@ var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean])
 var point =ee.Geometry.Point([-122.631271, 41.083118]);
 
 
-var neig = image.neighborhoodToArray(ee.Kernel.square(20));
+var neig = image.neighborhoodToArray(ee.Kernel.square(10));
+
 var training = neig.reduceRegions({
   collection: point,
-  scale: 25,
+  scale: scale,
   reducer: 'first'
 });
 
@@ -62,8 +63,8 @@ Map.setCenter(-122.631271, 41.083118, 18);
 print(training);
 // Note outputs are flipped (y, x)
 
-Export.table.toDrive({
-  collection: training,
-  description:'test_points',
-  fileFormat: 'CSV'
-});
+// Export.table.toDrive({
+//   collection: training,
+//   description:'test_points',
+//   fileFormat: 'CSV'
+// });
