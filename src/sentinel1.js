@@ -1,70 +1,91 @@
+var date_day = ee.Date('2014-12-02');
+var start = date_day.advance(-30, 'day');
+var end = date_day.advance(-1, 'day');
+var date_range = ee.Filter.date(start, end);
+
+// '2014-12-02', '2014-12-09'
+var point =ee.Geometry.Point([-122.631271, 41.083118]);
+
+print(date_day)
+print(start);
+print(end);
+
+
+
 var sentinel1 = ee.ImageCollection('COPERNICUS/S1_GRD')
-                    .filterDate('2022-01-25', '2022-02-05');
+                    .filter(date_range).filterBounds(point);
+
+print(sentinel1.size())
 
 var proj = ee.Projection('EPSG:4326');
 
 // Filter the Sentinel-1 collection by metadata properties.
-var vvVhIw = sentinel1
-  // Filter to get images with VV and VH dual polarization.
+var vvIw = sentinel1
   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
-  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VH'))
-  // Filter to get images collected in interferometric wide swath mode.
   .filter(ee.Filter.eq('instrumentMode', 'IW'));
 
-// Separate ascending and descending orbit images into distinct collections.
-var vvVhIwAsc = vvVhIw.filter(
-  ee.Filter.eq('orbitProperties_pass', 'ASCENDING'));
+var vhIw = sentinel1
+  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VH'))
+  .filter(ee.Filter.eq('instrumentMode', 'IW'));
 
-var vvVhIwDesc = vvVhIw.filter(
-  ee.Filter.eq('orbitProperties_pass', 'DESCENDING'));
+var vv_size = vvIw.size();
+var vh_size = vhIw.size();
 
-// Calculate temporal means for various observations to use for visualization.
-// Mean VH ascending.
-var vhIwAscMean = vvVhIwAsc.select('VH').mean();
-// Mean VH descending.
-var vhIwDescMean = vvVhIwDesc.select('VH').mean();
+print("VV size", vv_size); // sometimes 0
+print(vv_size > 0);
+print("VH size",vh_size); // sometimes 0
 
-// Mean VV for combined ascending and descending image collections.
-var vvIwAscDescMean = vvVhIwAsc.merge(vvVhIwDesc).select('VV').mean();
-// Mean VH for combined ascending and descending image collections.
-var vhIwAscDescMean = vvVhIwAsc.merge(vvVhIwDesc).select('VH').mean();
+print(sentinel1);
+print(vvIw);
+print(vhIw);
 
+
+// Calculate temporal means and reproject (clunky if)
 var scale = 40;
-//reproject
-var vhIwAscMean = vhIwAscMean.reproject(proj, null, scale);
-var vhIwDescMean = vhIwDescMean.reproject(proj, null, scale);
-var vvIwAscDescMean = vvIwAscDescMean.reproject(proj, null, scale);
-var vhIwAscDescMean = vhIwAscDescMean.reproject(proj, null, scale);
+if (vv_size > 0){
+  var vvIwMean = vvIw.select('VV').mean();
+  var vvIwMean = vvIwMean.reproject(proj, null, scale);
+  Map.addLayer(vvIwMean, {min: -12, max: -4}, 'vvIwMean');
 
-// Display the temporal means for various observations, compare them.
-Map.addLayer(vvIwAscDescMean, {min: -12, max: -4}, 'vvIwAscDescMean');
-Map.addLayer(vhIwAscDescMean, {min: -18, max: -10}, 'vhIwAscDescMean');
-Map.addLayer(vhIwAscMean, {min: -18, max: -10}, 'vhIwAscMean');
-Map.addLayer(vhIwDescMean, {min: -18, max: -10}, 'vhIwDescMean');
+  
+} else {
+  var vvIwMean = ee.List([])}
+
+if (vh_size > 0){
+  var vhIwcMean = vhIw.select('VH').mean();
+  var vhIwcMean = vhIwcMean.reproject(proj, null, scale);
+  Map.addLayer(vhIwcMean, {min: -18, max: -10}, 'vhIwcMean');
+
+} else {
+  var vvIwMean = ee.List([])}
 
 
-var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean]);
-//vvIwAscDescMean.addBands({srcImg: reflBands, overwrite: true});
-var point =ee.Geometry.Point([-122.631271, 41.083118]);
 
 
-var neig = image.neighborhoodToArray(ee.Kernel.square(10));
+print(vvIwMean)
 
-var training = neig.reduceRegions({
-  collection: point,
-  scale: scale,
-  reducer: 'first'
-});
+// var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean]);
+// //vvIwAscDescMean.addBands({srcImg: reflBands, overwrite: true});
+// var point =ee.Geometry.Point([-122.631271, 41.083118]);
+
+
+// var neig = image.neighborhoodToArray(ee.Kernel.square(10));
+
+// var training = neig.reduceRegions({
+//   collection: point,
+//   scale: scale,
+//   reducer: 'first'
+// });
 
 
 
 Map.setCenter(-122.631271, 41.083118, 18);  
 
-print(training);
-// Note outputs are flipped (y, x)
+// print(training);
+// // Note outputs are flipped (y, x)
 
-// Export.table.toDrive({
-//   collection: training,
-//   description:'test_points',
-//   fileFormat: 'CSV'
-// });
+// // Export.table.toDrive({
+// //   collection: training,
+// //   description:'test_points',
+// //   fileFormat: 'CSV'
+// // });
