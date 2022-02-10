@@ -11,3 +11,4 @@
 |2/07/2022 - 1	| 9.0158 | 8.1114 | -	| 9.4568 | 9.4604 | 8.0771 |	RF, all data, day of season + MODIS prediction for CNN from 2/4	|
 |2/09/2022 - 1	| 7.4634 | 5.0854 | -	| 7.5993 | 7.6044 | 10.9255 |	RF, all data, day of season + MODIS prediction for CNN from 2/8	|
 |2/09/2022 - 2	| 8.8487 | 7.7413 | -	| 9.0258 | 9.1748 | 8.1460 |	RF, all data, day of season + MODIS prediction for CNN from 2/4 + image quality	|
+|2/10/2022 - 1	| 8.5223 | 5.4909 | - | 8.6631 | 8.6763 | 10.4650 |	RF, all data, day of season + MODIS prediction for CNN from 2/9	|
