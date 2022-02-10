@@ -28,17 +28,20 @@ var images_create = function(date){
   var scale = 40;
   var vvIwMean = vvIw.select('VV').mean().reproject(proj, null, scale);
   
-  var point =ee.Geometry.Point([-122.631271, 41.083118], 'EPSG:4326');
+  var points =ee.FeatureCollection([ee.Feature(ee.Geometry.Point([-122.631271, 41.083118], 'EPSG:4326')),
+      ee.Feature(ee.Geometry.Point([-123.080274, 47.874210	], 'EPSG:4326'))]);
+      
+
   var neig = vvIwMean.neighborhoodToArray(ee.Kernel.square(10));
 
   var training = neig.reduceRegions({
-    collection: point,
+    collection: points,
     scale: scale,
     reducer: 'first',
     crs: proj
   });
 
-  return training;
+  return training.map(function(f){return f.set("date", date_day)});
 };
 
 
@@ -48,7 +51,7 @@ print(date_list);
 
 Export.table.toDrive({
   collection: date_list,
-  description:'test_points_try3',
+  description:'test_points_try4',
   fileFormat: 'CSV'
 });
 
