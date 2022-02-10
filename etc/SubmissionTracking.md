@@ -8,4 +8,6 @@
 |1/29/2022 - 1	|	15.3637 |	- | -	|	15.3644 | 15.3854 | 11.8648 |	RF, only data with MODIS imagery, state dummies + day of season	|
 |1/30/2022 - 2	|	13.1548 |	- | -	|	13.5582 | 13.5787 | 9.1539 |	RF, only data with MODIS imagery, state dummies + day of season + MODIS prediction for CNN (32_18_8_3_0.13_50_44)	|
 |2/04/2022 - 1	| 9.5228 | 8.2486 | -	| 9.7126 | 9.7573 | 8.3817 |	RF, all data, state dummies + MODIS prediction for CNN from 2/4	|
-|2/07/2022 - 1	| 9.0158 | 8.1114 | -	| 9.4568 | 9.4604 | 8.0771 |	RF, all data, state dummies + MODIS prediction for CNN from 2/4	|
+|2/07/2022 - 1	| 9.0158 | 8.1114 | -	| 9.4568 | 9.4604 | 8.0771 |	RF, all data, day of season + MODIS prediction for CNN from 2/4	|
+|2/09/2022 - 1	| 7.4634 | 5.0854 | -	| 7.5993 | 7.6044 | 10.9255 |	RF, all data, day of season + MODIS prediction for CNN from 2/8	|
+|2/09/2022 - 2	| 8.8487 | 7.7413 | -	| 9.0258 | 9.1748 | 8.1460 |	RF, all data, day of season + MODIS prediction for CNN from 2/4 + image quality	|
