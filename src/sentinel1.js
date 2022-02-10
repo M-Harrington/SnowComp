@@ -42,27 +42,25 @@ print(vhIw);
 
 // Calculate temporal means and reproject (clunky if)
 var scale = 40;
-if (vv_size > 0){
-  var vvIwMean = vvIw.select('VV').mean();
-  var vvIwMean = vvIwMean.reproject(proj, null, scale);
-  Map.addLayer(vvIwMean, {min: -12, max: -4}, 'vvIwMean');
 
-  
-} else {
-  var vvIwMean = ee.List([])}
-
-if (vh_size > 0){
-  var vhIwcMean = vhIw.select('VH').mean();
-  var vhIwcMean = vhIwcMean.reproject(proj, null, scale);
-  Map.addLayer(vhIwcMean, {min: -18, max: -10}, 'vhIwcMean');
-
-} else {
-  var vvIwMean = ee.List([])}
+var vvIwMean = ee.Algorithms.If(vvIw,
+ vvIw.select('VV').mean().reproject(proj, null, scale),
+ ee.List([])
+);
 
 
+var vhIwMean =  ee.Algorithms.If(vhIw,
+  vhIw.select('VH').mean().reproject(proj, null, scale),
+  ee.List([]));
 
 
-print(vvIwMean)
+print("vv mean", vhIwMean);
+print("vh mean", vhIwMean);  
+
+Map.addLayer(vhIwMean, {min: -18, max: -10}, 'vhIwcMean');
+Map.addLayer(vvIwMean, {min: -12, max: -4}, 'vvIwMean');
+
+
 
 // var image = ee.Image([vhIwAscMean,vhIwDescMean,vvIwAscDescMean,vhIwAscDescMean]);
 // //vvIwAscDescMean.addBands({srcImg: reflBands, overwrite: true});
