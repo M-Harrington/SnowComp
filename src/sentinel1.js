@@ -24,40 +24,15 @@ var vvIw = sentinel1
   .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VV'))
   .filter(ee.Filter.eq('instrumentMode', 'IW'));
 
-var vhIw = sentinel1
-  .filter(ee.Filter.listContains('transmitterReceiverPolarisation', 'VH'))
-  .filter(ee.Filter.eq('instrumentMode', 'IW'));
 
-var vv_size = vvIw.size();
-var vh_size = vhIw.size();
-
-print("VV size", vv_size); // sometimes 0
-print(vv_size > 0);
-print("VH size",vh_size); // sometimes 0
-
-print(sentinel1);
-print(vvIw);
-print(vhIw);
+print("VV size", vvIw.size()); // sometimes 0
 
 
 // Calculate temporal means and reproject (clunky if)
 var scale = 40;
-
-var vvIwMean = ee.Algorithms.If(vvIw,
- vvIw.select('VV').mean().reproject(proj, null, scale),
- ee.List([])
-);
+var vvIwMean = vvIw.select('VV').mean().reproject(proj, null, scale);
 
 
-var vhIwMean =  ee.Algorithms.If(vhIw,
-  vhIw.select('VH').mean().reproject(proj, null, scale),
-  ee.List([]));
-
-
-print("vv mean", vhIwMean);
-print("vh mean", vhIwMean);  
-
-Map.addLayer(vhIwMean, {min: -18, max: -10}, 'vhIwcMean');
 Map.addLayer(vvIwMean, {min: -12, max: -4}, 'vvIwMean');
 
 
