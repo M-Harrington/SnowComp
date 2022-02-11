@@ -1,4 +1,4 @@
-var date_loc = ee.FeatureCollection("users/mrh2182/ylabs_dateloc");
+var date_loc = ee.FeatureCollection("users/mrh2182/ylabs_dateloc_short");
 
 var date_loc = date_loc.map(function(feature){
   var date = ee.Date(feature.get('date'));
@@ -7,7 +7,7 @@ var date_loc = date_loc.map(function(feature){
 
 
 
-var date_list = ee.FeatureCollection("users/mrh2182/date_list_ylabs");
+var date_list = ee.FeatureCollection("users/mrh2182/date_list_ylabs_short");
 
 var images_create = function(date){
   var date_day = ee.Date(date.get('date'));
@@ -55,4 +55,3 @@ Export.table.toDrive({
   description:'sentinel_ylab',
   fileFormat: 'CSV'
 });
-
