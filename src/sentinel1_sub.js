@@ -1,12 +1,3 @@
-  var date_loc = ee.FeatureCollection("users/mrh2182/sub_dateloc");
-  
-  var date_loc = date_loc.map(function(feature){
-    var date = ee.Date(feature.get('date'));
-    return feature.set('date',date);
-  });
-  
-  
-  
   var date_list = ee.FeatureCollection("users/mrh2182/date_list_sub");
   
   var images_create = function(date){
@@ -47,12 +38,29 @@
   };
   
   
-  // date_list = date_list.map(images_create).flatten();
-  // print(date_list);
+  var date_loc = ee.FeatureCollection("users/mrh2182/sub_dateloc0of2");
+  
+  var date_loc = date_loc.map(function(feature){
+    var date = ee.Date(feature.get('date'));
+    return feature.set('date',date);
+  });
   
   Export.table.toDrive({
     collection: date_list.map(images_create).flatten(),
-    description:'sentinel_sub',
+    description:'sentinel_sub0of2',
     fileFormat: 'CSV'
   });
   
+  ///////
+  var date_loc = ee.FeatureCollection("users/mrh2182/sub_dateloc1of2");
+  
+  var date_loc = date_loc.map(function(feature){
+    var date = ee.Date(feature.get('date'));
+    return feature.set('date',date);
+  });
+  
+  Export.table.toDrive({
+    collection: date_list.map(images_create).flatten(),
+    description:'sentinel_sub1of2',
+    fileFormat: 'CSV'
+  });
