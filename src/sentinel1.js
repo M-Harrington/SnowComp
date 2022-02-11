@@ -47,12 +47,12 @@ var images_create = function(date){
 };
 
 
-date_list = date_list.map(images_create).flatten();
-print(date_list);
+// date_list = date_list.map(images_create).flatten();
+// print(date_list);
 
-// Export.table.toDrive({
-//   collection: date_list,
-//   description:'sentinel_ylab',
-//   fileFormat: 'CSV'
-// });
+Export.table.toDrive({
+  collection: date_list.map(images_create).flatten(),
+  description:'sentinel_ylab',
+  fileFormat: 'CSV'
+});
 
