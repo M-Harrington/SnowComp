@@ -15,8 +15,6 @@ The below follows the order of operations for reconstructing the repo and the mo
 6. Run `path_git + "sentinel_preprocessing.ipynb"`
 7. This saves files `sent_pp_*.npy` and metadata `sent_*_meta.csv` to `path_dbx +"SentinelHelper/"`
 
-### Other data
-TODO: Isabella
 
 ## Training 
 ### Sentinel CNN
@@ -32,7 +30,8 @@ TODO: Isabella
 4. Submission data and metadata can be found in `"subpreds.npy"` in `path_dbx +"preds/"`
 
 ### Meta aggregator (linear model)
-TODO: 
+1. Run `path_git + "src/train_lm.ipynb"`
+2. Model weights are saved in `path_git + "realtime/lm.joblib"`
 
 ## Realtime Predictions
 1. Define `DATE`
@@ -44,9 +43,8 @@ TODO:
 7. saves to `path_dbx + "realtimeData/"`
 8. Run `path_git + "ModisProcessingRealtime.ipynb"`
 9. saves `"Modis_sub_"+str(DATE)` to  `path_dbx + "realtimeData/"`
-
-TODO: Meta pipeline
-
+10. Modify ROOT in `path_git + "realtime/realtime.ipynb"` to point to local code repository. Ensure imagery input paths are consistent with your output paths from imagery ingestion steps.
+11. Run `path_git + "realtime/realtime.ipynb"` to generate predictions through current date.
 
 ## Environments
 You can find all of the requirements for preprocessing steps in `SnowComp.yml` and for the CNN in `pytorch.yml` 
