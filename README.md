@@ -1,5 +1,5 @@
 # SnowComp
-The below follows the order of operations for reconstructing the repo and the models. Note that two referenced paths are `path_git = "SnowComp/dat/"` and `path_dbx = "Dropbox/SnowComp/"`
+The below follows the order of operations for reconstructing the repo and the models. Note that two referenced paths are `path_git = "SnowComp/dat/"` and `path_dbx = "Dropbox/SnowComp/"` and the dropbox is accessible at: https://www.dropbox.com/sh/228l4p3411f0ard/AAA4NnAEb3Py_pWH38uQjV4ra?dl=0 
 
 ## Data collection
 ### Modis
