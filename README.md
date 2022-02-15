@@ -35,3 +35,14 @@ TODO: Isabella
 TODO: 
 
 ## Realtime Predictions
+1. Define `DATE`
+2. Run `path_git + "SentinelHelper-realtime.ipynb"`
+3. saves `sub_dateloc*+DATE` to `path_dbx +"SentinelHelper/realtime/"`
+4. Run `path_git + "sentinel1_subRealtime.js"`
+5. saves to drive `"sub_dateloc*_rt_"+DATE`
+6. Run `path_git + "sentinel_preprocessing-realtime.ipynb"`
+7. saves to `path_dbx + "realtimeData/"`
+8. Run `path_git + "ModisProcessingRealtime.ipynb"`
+9. saves `"Modis_sub_"+str(DATE)` to  `path_dbx + "realtimeData/"`
+
+TODO: Meta pipeline
