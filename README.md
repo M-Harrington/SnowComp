@@ -37,7 +37,7 @@ The below follows the order of operations for reconstructing the repo and the mo
 1. Define `DATE`
 2. Run `path_git + "SentinelHelper-realtime.ipynb"`
 3. saves `sub_dateloc*+DATE` to `path_dbx +"SentinelHelper/realtime/"`
-4. Run `path_git + "sentinel1_subRealtime.js"`
+4. In Earth Engine, run `path_git + "sentinel1_subRealtime.js"`
 5. saves to drive `"sub_dateloc*_rt_"+DATE`
 6. Run `path_git + "sentinel_preprocessing-realtime.ipynb"`
 7. saves to `path_dbx + "realtimeData/"`
